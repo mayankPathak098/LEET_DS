@@ -18,31 +18,36 @@ public:
 
 class Solution {
 public:
-    Node* connect(Node* root) {
-        if(root==NULL) return root;
-        
-        queue<Node*>q;
-        q.push(root);
+    Node* connect(Node* r) {
+        if(r==nullptr) return r;
+        queue<Node*> q;
+        q.push(r);
+        Node* curr=new Node();
         while(!q.empty()){
             int size=q.size();
-            vector<Node*>level;
-            for(int i=0;i<size;i++){
-                Node* temp=q.front();
+            //cout<<size<<endl;
+            curr=q.front();
+            q.pop();
+            //cout<<curr->val<<endl;
+            if(curr->left!=nullptr){
+                q.push(curr->left);
+            }
+            if(curr->right!=nullptr){
+                q.push(curr->right);
+            }
+            for(int i=1;i<size;i++){
+                curr->next=q.front();
+                curr=curr->next;
                 q.pop();
-                if(i==size-1) root->next=NULL;
-                level.push_back(temp);
-                if(temp->left!=NULL) q.push(temp->left);
-                if(temp->right!=NULL) q.push(temp->right);
-
+                if(curr->left!=nullptr){
+                    q.push(curr->left);
+                }
+                if(curr->right!=nullptr){
+                    q.push(curr->right);
+                }
             }
-            reverse(level.begin(),level.end());
-            for(int i=1;i<level.size();i++){
-                level[i]->next=level[i-1];
-            }
-
+            curr->next=nullptr;
         }
-        return root;
+        return r;
     }
 };
-
-auto it = atexit([]() { ofstream("display_runtime.txt") << "0"; });
