@@ -11,7 +11,7 @@
 class Solution {
 public:
     
-    ListNode* rev(ListNode* temp,ListNode* temp1,int d){//head=temp1
+    ListNode* rev(ListNode* temp,ListNode* temp1){//head=temp1
         ListNode *cur=temp1,*prev=temp,*next=temp;
         while(cur!=temp){
                 next=cur->next;
@@ -42,12 +42,12 @@ public:
                 if(idx%k==0 && idx!=0){
                     if(d==0){
                         d++;
-                        ans=rev(temp,temp1,d);
+                        ans=rev(temp,temp1);
                     
                         temp1=temp;
                         }else {
                         proxy=temp1;
-                        ans2->next=rev(temp,temp1,d);
+                        ans2->next=rev(temp,temp1);
                         ans2=proxy;
                         temp1=temp;
                         }
