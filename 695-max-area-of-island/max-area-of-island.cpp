@@ -1,29 +1,26 @@
 class Solution {
 public:
-    int bfs(vector<vector<int>>& grid,int i,int j){
-        int r=grid.size();
-        int c=grid[0].size();
-        int count=0;
-        if(i<0||j<0||i>=r||j>=c||grid[i][j]==0) return count;
-        grid[i][j]=0;//visited
-        int n1=bfs(grid,i+1,j);
-        int n2=bfs(grid,i-1,j);
-        int n3=bfs(grid,i,j+1);
-        int n4=bfs(grid,i,j-1);
-
-        return count+n1+n2+n3+n4+1;
+    int dfs(vector<vector<int>>& grid,int i,int j){
+        if(i<0||j<0||i>=grid.size()||j>=grid[i].size()||grid[i][j]==0) return 0;
+        grid[i][j]=0;
+        int a=dfs(grid,i-1,j);
+        int b=dfs(grid,i+1,j);
+        int c=dfs(grid,i,j+1);
+        int d=dfs(grid,i,j-1);
+        return 1+a+b+c+d;
     }
+    
     int maxAreaOfIsland(vector<vector<int>>& grid) {
         int r=grid.size();
         int c=grid[0].size();
-        int max=0;
+        int maxx=0;
         int sum=0;
         for(int i=0;i<r;i++){
             for(int j=0;j<c;j++){
-                if(grid[i][j]==1) sum=bfs(grid,i,j);
-                if(sum>max) max=sum;
+                if(grid[i][j]==1) sum=dfs(grid,i,j);
+                maxx=max(sum,maxx);
             }
         }
-        return max;
+        return maxx;
     }
 };
