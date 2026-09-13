@@ -3,7 +3,7 @@ public:
     
     vector<int> rearrangeArray(vector<int>& nums) {
         int n=nums.size();
-        vector<int>vec1,vec2;
+        /*vector<int>vec1,vec2;
         for(int i=0;i<n;i++){
             if(nums[i]<0) vec1.push_back(nums[i]); // vec1= -ve value
             else vec2.push_back(nums[i]);  //vec2= +ve value
@@ -17,7 +17,22 @@ public:
                 vec2.pop_back();
             }
         }
-        return nums;
+        return nums;*/
+
+        int first=0,second=1;
+        int i=0;
+        vector<int>ans(n);
+        while(i<n){
+            if(nums[i]<0){//-ve value
+                ans[second]=nums[i];
+                second+=2;
+            }else{//+ve value
+                ans[first]=nums[i];
+                first+=2;
+            }
+            i++;
+        }
+        return ans;
 
     }
 };
